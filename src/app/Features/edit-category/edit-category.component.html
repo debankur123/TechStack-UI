@@ -1,0 +1,21 @@
+<p-dialog header="Edit Category" [(visible)]="displayEditDialog" [modal]="true" [draggable]="false" (onHide)="onDialogHide()" [resizable]="false" [style]="{ width: '35vw' }">
+    <form #form="ngForm" (ngSubmit)="onFormEdit()" class="custom-form">
+        <div class="custom-field">
+            <label for="categoryId" class="custom-label">Category Id</label>
+            <input type="text" pInputText id="categoryId" name="categoryId" [(ngModel)]="categoryDetails.categoryId"  class="p-inputtext"  disabled/>
+        </div>
+        <div class="custom-field">  
+            <label for="categoryName" class="custom-label">Category Name</label>
+            <input type="text" pInputText id="categoryName" name="categoryName" [(ngModel)]="categoryDetails.name" class="p-inputtext" />
+        </div>
+        <div class="custom-field">
+            <label for="urlHandle" class="custom-label">URL Handle</label>
+            <input type="text" pInputText id="urlHandle" name="urlHandle" [(ngModel)]="categoryDetails.urlHandle" class="p-inputtext" />
+        </div>
+        <div class="custom-button-group">
+            <button pButton type="submit" label="Save" class="p-button-success"></button>
+            <button pButton type="button" label="Cancel" [routerLink]="['/admin/categories']" class="p-button-danger"></button>
+            <p-toast></p-toast>
+        </div>
+    </form>
+</p-dialog>

@@ -1,0 +1,44 @@
+/* Style for the table container */
+.container {
+  margin-top: 20px;
+}
+
+/* Style for the category heading */
+.category-heading {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #333;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the "Add Category" button */
+#button-customized {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+#button-customized:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+/* Style for the table */
+/*  */
+
+
+.p-table .p-datatable thead th,
+.p-table .p-datatable tbody td {
+  border-right: 1px solid #ddd;
+}
+
+/* Remove right border from last column header and cells */
+.p-table .p-datatable thead th:last-child,
+.p-table .p-datatable tbody td:last-child {
+  border-right: none;
+}
+

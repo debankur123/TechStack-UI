@@ -1,0 +1,98 @@
+<p-dialog class="header" styleClass="justify-content-center" header="CREATE BLOG POSTS" (onHide)="onDialogHide()"
+  [(visible)]="displayDialog" [style]="{ 'width': '80%' }">
+  <div class="p-grid">
+    <form class="p-col-12" #form="ngForm">
+      <div class="p-col-6 mt-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" id="Title" name="Title" pInputText class="p-inputtext p-component smaller-input"
+          style="width: 100%" [(ngModel)]="FormData.blogModule.title">
+      </div>
+      <div class="p-col-6 mt-3">
+        <label for="urlHandle" class="form-label">URL Handle</label>
+        <input type="text" id="URLHandle" name="URLHandle" pInputText class="p-inputtext p-component smaller-input"
+          style="width: 100%" [(ngModel)]="FormData.blogModule.urlHandle">
+      </div>
+      <div class="p-col-6 mt-3">
+        <label for="shortDescription" class="form-label">Short Description</label>
+        <input type="text" id="ShortDescription" name="ShortDescription" pInputText
+          class="p-inputtext p-component smaller-input" style="width: 100%"
+          [(ngModel)]="FormData.blogModule.shortDescription">
+      </div>
+
+      <div class="p-col-12 mt-3">
+        <label for="content" class="form-label">Content</label>
+
+        <div class="d-flex flex-row">
+          <textarea id="content" name="content" [(ngModel)]="FormData.content[0].content" class="p-inputtext p-component smaller-input" style="height: 350px; max-height: 350px;"></textarea>
+          <!-- <div class="col-6 p-2">
+            <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
+            <ngx-editor name="content" id="content" disabled="false" [editor]="editor" [placeholder]="'Type here...'"
+              [(ngModel)]="FormData.content[0].content" style="height: 350px; max-height: 350px;"></ngx-editor>
+            <textarea name="content" id="content" placeholder="Type Here..." style=" width: max-content;"
+              [(ngModel)]="FormData.content[0].content"></textarea>
+              <editor [(ngModel)]="FormData.content[0].content" style="height: 350px; max-height: 350px;" apiKey="emilb19z7qftl4mzo9wfo9wvi28dc126ugvhvm2kzds0ydbh" [init]="{
+                plugins: 'lists link image table',
+                menubar : 'file insert format table tools',
+                statusbar : false,branding : false,promotion : false
+              }"></editor>
+          </div> -->
+          
+          <div class="col-6 p-2" style="max-height: 350px; overflow-y: scroll;">
+            <markdown [data]="FormData.content[0].content"></markdown>
+          </div>
+        </div>
+      </div>
+      <br>
+      <br>
+
+      <div class="p-col-6 mt-3 justify-content-center">
+        <label for="categories" class="form-label">Categories</label>
+        <br>
+        <ng-container *ngIf="categories$ | async as categories">
+          <p-multiSelect [options]="categories" name="categories" id="categories" [(ngModel)]="selectedCategories"
+            optionLabel="name" defaultLabel="Select Categories" [showHeader]="true"></p-multiSelect>
+        </ng-container>
+      </div>
+
+      <div class="p-col-6 mt-3">
+        <label for="featuredImageURL" class="form-label">Featured Image URL</label>
+        <ng-container *ngIf="FormData.blogModule.featuredImageURL !== '' ">
+          <div>
+            <img [src]="FormData.blogModule.featuredImageURL" height="100" class="my-2">
+          </div>
+        </ng-container>
+
+        <input type="text" id="FeaturedImageURL" name="FeaturedImageURL" pInputText
+          class="p-inputtext p-component smaller-input" style="width: 100%"
+          [(ngModel)]="FormData.blogModule.featuredImageURL">
+      </div>
+      <div class="p-col-6 mt-3">
+        <label for="author" class="form-label">Author</label>
+        <input type="text" id="Author" name="Author" pInputText class="p-inputtext p-component smaller-input"
+          style="width: 100%" [(ngModel)]="FormData.blogModule.author">
+      </div>
+      <div class="p-col-6 mt-3 justify-content-center">
+        <label for="PublishedDate" class="form-label">Published Date</label><br />
+        <p-calendar name="PublishedDate" id="PublishedDate" styleClass="custom-calendar" [showIcon]="true"
+          [(ngModel)]="FormData.blogModule.publishedDate">
+
+        </p-calendar>
+      </div>
+      <div class="p-col-12 mt-3">
+        <label for="isVisible" class="form-check-label">
+          <p-checkbox [binary]="true" inputId="binary" [(ngModel)]="FormData.blogModule.isVisible" name="IsVisible"
+            id="IsVisible"></p-checkbox> Is Visible?
+        </label>
+      </div>
+      <div class="p-col-12 mt-3">
+        <button icon="pi pi-check" type="submit" pButton class="primary-button" (click)="onSubmit()"
+          style="background-color: green; color: white; border: none;">Save</button>
+        <p-toast></p-toast>
+        <button icon="pi pi-refresh" type="submit" pButton class="ms-2"
+          style="background-color: gray; color:white; border: none;" (click)="onReset()">Reset</button>
+        <button icon="pi pi-times" type="submit" pButton class="ms-2"
+          style="background-color: red; color: white; border: none;" (click)="onCancel()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</p-dialog>
