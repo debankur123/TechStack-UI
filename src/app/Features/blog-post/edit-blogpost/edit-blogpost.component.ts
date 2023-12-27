@@ -21,6 +21,7 @@ export class EditBlogpostComponent implements OnInit, OnDestroy, AfterViewChecke
   subscription?: Subscription;
   editSubs? : Subscription;
   displayEditDialog!: Boolean;
+  displayImageSelector : Boolean = false;
   displayDialog: boolean = true;
   FormData!: AddBlogModel;
   highlighted: boolean = false;
@@ -144,6 +145,10 @@ export class EditBlogpostComponent implements OnInit, OnDestroy, AfterViewChecke
   }
   sanitizeContent(htmlString: string): string {
     return htmlString.replace(/<[^>]*>/g, '');
+  }
+
+  openImageSelector() : void{
+    this.displayImageSelector = true;
   }
 
 }

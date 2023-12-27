@@ -91,7 +91,7 @@
             <a href="javascript:void(0);" [routerLink]="['/admin/blogposts',blogPost.blogModule.id ]" style="size: 1.75em;" >
               <span><i pTooltip="Edit Content" class="fa-solid fa-file-pen fa-lg" style="color: #511f37;"></i></span>
             </a>
-            <a href="javascript:void(0);" style="size: 1.75em;" class="ms-2">
+            <a href="javascript:void(0);" style="size: 1.75em;" class="ms-2" (click)="OnDelete(blogPost.blogModule.id)">
               <i pTooltip="Delete Content" class="fa-regular fa-trash-can  fa-lg" style="color: #f10404;"></i>
             </a>
             <a href="javascript:void(0);" style="size: 1.75em;" class="ms-2">

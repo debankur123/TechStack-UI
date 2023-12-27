@@ -25,4 +25,11 @@ export class BlogPostService {
   GetBlogContentById(id : Number) : Observable<AddBlogModel>{
     return this.client.get<AddBlogModel>(`${this.baseAPIURL}/api/BlogContent/GetBlogContentbyId/?Id=${id}`);
   }
+  DeleteBlogContent(Id: Number): Observable<any> {
+    return this.client.patch<Number>(
+      `${this.baseAPIURL}/api/BlogContent/DeleteBlogContent/?Id=${Id}`,
+      null
+    );
+  }
+  
 }

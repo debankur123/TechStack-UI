@@ -34,6 +34,7 @@ import { EditBlogpostComponent } from './Features/blog-post/edit-blogpost/edit-b
 import { HighlightService } from './Features/Services/highlight.service';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
+import { ImageSelectorComponent } from './shared/components/image-selector/image-selector.component';
 
    
 
@@ -47,7 +48,8 @@ import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
     EditCategoryComponent,
     BlogpostListComponent,
     AddBlogpostComponent,
-    EditBlogpostComponent
+    EditBlogpostComponent,
+    ImageSelectorComponent
   ],
   imports: [
     BrowserModule,
