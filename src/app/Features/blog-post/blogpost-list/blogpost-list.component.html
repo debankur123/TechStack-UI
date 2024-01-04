@@ -1,4 +1,3 @@
-
 <div class="container">
   <h1 class="justify-content-center align-items-center mt-3" [@fadeIn]>BLOGPOST LIST</h1>
   <div class="d-flex justify-content-end mt-3">
@@ -8,105 +7,82 @@
 
   <div class="card">
     <p-table #dt [value]="blogList" dataKey="blogModule.id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
-      [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true"
+      [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [scrollable]="true" [scrollHeight]="'calc(100vh - 300px)'"
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
       [globalFilterFields]="['blogModule.title', 'blogModule.author', 'content[0].content', 'blogModule.publishedDate']">
       <ng-template pTemplate="caption">
-        <div class="table-header">
-          <span class="p-input-icon-right">
-            <i class="pi pi-search"></i>
-            <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')"
-              placeholder="Search" />
-          </span>
+        <div class="p-inputgroup" style="width: 250px; margin-bottom: 10px;">
+          <input  pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Search"
+            class="p-inputtext p-placeholder-filled" style="width: 100%;" />
         </div>
       </ng-template>
-      <ng-template pTemplate="header">
+      <ng-template pTemplate="header" let-columns>
         <tr>
-          <th pSortableColumn="blogModule.title" style="min-width: 14rem">
+          <th>
             <div class="flex justify-content-between align-items-center">
               Title
-              <p-sortIcon field="blogModule.title"></p-sortIcon>
-              <p-columnFilter type="text" field="blogModule.title" display="menu" class="ml-auto"></p-columnFilter>
             </div>
           </th>
-          <th pSortableColumn="blogModule.author" style="min-width: 10rem">
+          <th>
             <div class="flex justify-content-between align-items-center">
               Author
-              <p-sortIcon field="blogModule.author"></p-sortIcon>
-              <p-columnFilter type="text" field="blogModule.author" display="menu" class="ml-auto"></p-columnFilter>
             </div>
           </th>
-          <th pSortableColumn="blogModule.categoryNames
-          " style="min-width: 10rem">
+          <th>
             <div class="flex justify-content-between align-items-center">
               Categories
-              <p-sortIcon field="blogModule.categoryNames
-              "></p-sortIcon>
-              <p-columnFilter type="text" field="blogModule.categoryNames
-              " display="menu" class="ml-auto"></p-columnFilter>
             </div>
           </th>
-          <th pSortableColumn="blogModule.publishedDate" style="min-width: 10rem">
+          <th>
             <div class="flex justify-content-between align-items-center">
               Published Date
-              <p-sortIcon field="blogModule.publishedDate"></p-sortIcon>
-              <p-columnFilter type="date" field="blogModule.publishedDate" display="menu"
-                class="ml-auto"></p-columnFilter>
             </div>
           </th>
-          <th style="min-width: 10rem">
+          <th>
             <div class="flex justify-content-between align-items-center">
               Actions
             </div>
           </th>
-          <th style="width: 5rem"></th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-blogPost>
-        <tr class="p-selectable-row">
+      <ng-template pTemplate="body" let-blogPost let-even="even" let-odd="odd" let-index="rowIndex">
+        <tr>
           <td>
-            <span class="p-column-title">Title</span>
-            <a style="text-decoration: none;" [routerLink]="['/admin/blogposts',blogPost.blogModule]">{{ blogPost.blogModule.title }}</a>
+            <a [routerLink]="['/admin/blogposts', blogPost.blogModule.id]">{{ blogPost.blogModule.title }}</a>
           </td>
-          <td>
-            <span class="p-column-title">Author</span>
-            {{ blogPost.blogModule.author }}
-          </td>
+          <td>{{ blogPost.blogModule.author }}</td>
           <td>
             <ng-container *ngIf="blogPost.categoryNames && blogPost.categoryNames.length > 0 && blogPost.categoryNames[0].trim() !== ''; else noCategories">
-              <span class="badge me-2" style="background-color: yellowgreen; color: white;" *ngFor="let category of blogPost.categoryNames">
+              <span class="badge me-2" style="background-color: yellowgreen; color: white;"
+                *ngFor="let category of blogPost.categoryNames">
                 {{ category }}
               </span>
             </ng-container>
             <ng-template #noCategories>
-              No Categories 
+              No Categories
               <i class="pi pi-exclamation-circle text-danger"></i>
             </ng-template>
-          </td>          
+          </td>
+          <td>{{ blogPost.blogModule.publishedDate | date: 'MM/dd/yyyy' }}</td>
           <td>
-            <span class="p-column-title">Published Date</span>
-            {{ blogPost.blogModule.publishedDate | date: 'MM/dd/yyyy' }}
-          </td>
-          <td >
-            <a href="javascript:void(0);" [routerLink]="['/admin/blogposts',blogPost.blogModule.id ]" style="size: 1.75em;" >
-              <span><i pTooltip="Edit Content" class="fa-solid fa-file-pen fa-lg" style="color: #511f37;"></i></span>
+            <a [routerLink]="['/admin/blogposts', blogPost.blogModule.id]">
+              <span><i class="pi pi-file fa-lg" style="color: #511f37;"></i></span>
             </a>
-            <a href="javascript:void(0);" style="size: 1.75em;" class="ms-2" (click)="OnDelete(blogPost.blogModule.id)">
-              <i pTooltip="Delete Content" class="fa-regular fa-trash-can  fa-lg" style="color: #f10404;"></i>
+            <a (click)="OnDelete(blogPost.blogModule.id)" class="ms-2">
+              <i class="pi pi-trash fa-lg" style="color: #f10404;"></i>
             </a>
-            <a href="javascript:void(0);" style="size: 1.75em;" class="ms-2">
-              <i pTooltip="View" class="fa-regular fa-eye fa-lg" style="color: #28879a;"></i>
+            <a class="ms-2">
+              <i class="pi pi-eye fa-lg" style="color: #28879a;"></i>
             </a>
-            <a href="javascript:void(0);" style="size: 2em;" class="ms-2">
-              <i pTooltip="Dwonload PDF" class="fa-solid fa-file-pdf" style="color: #e71368;"></i>
+            <a class="ms-2">
+              <i class="pi pi-file-pdf fa-lg" style="color: #e71368;"></i>
             </a>
           </td>
-          
         </tr>
       </ng-template>
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td colspan="8">No blog posts found.</td>
+          <td colspan="5">No blog posts found.</td>
         </tr>
       </ng-template>
     </p-table>
